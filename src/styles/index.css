@@ -1,0 +1,63 @@
+:root {
+  /* 基础颜色 */
+  --primary-color: #646cff;
+  --error-color: #ff4d4f;
+  --text-primary: #213547;
+  --text-secondary: #666666;
+  
+  /* 背景颜色 */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f5f5;
+  --bg-hover: #f0f0f0;
+  --bg-focus: #ffffff;
+  --bg-disabled: #f5f5f5;
+  --bg-error: #fff2f0;
+  
+  /* 边框颜色 */
+  --border-color: #e0e0e0;
+  
+  /* RGB 值，用于透明度计算 */
+  --primary-color-rgb: 100, 108, 255;
+  --error-color-rgb: 255, 77, 79;
+}
+
+/* 深色主题 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* 基础颜色 */
+    --primary-color: #747bff;
+    --error-color: #ff6b6b;
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0a0;
+    
+    /* 背景颜色 */
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2a2a2a;
+    --bg-hover: #333333;
+    --bg-focus: #2a2a2a;
+    --bg-disabled: #333333;
+    --bg-error: #2b1d1d;
+    
+    /* 边框颜色 */
+    --border-color: #404040;
+  }
+}
+
+/* 全局样式 */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* 移除浏览器默认样式 */
+input,
+textarea,
+select {
+  font-family: inherit;
+  background-color: transparent;
+}
+
+/* 平滑滚动 */
+* {
+  scroll-behavior: smooth;
+}

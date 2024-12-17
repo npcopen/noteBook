@@ -1,0 +1,108 @@
+.note-type-manager {
+  padding: 1.5rem;
+  background-color: var(--bg-primary);
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.note-type-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.note-type-header h3 {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.note-type-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.note-type-item {
+  padding: 1rem;
+  background-color: var(--bg-secondary);
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.2s;
+  transform: translateX(0);
+  transition: all 0.3s ease;
+}
+
+.note-type-item:hover {
+  background-color: var(--bg-hover);
+  transform: translateX(4px);
+}
+
+.note-type-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.note-type-name {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.note-type-description {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.note-type-actions {
+  display: flex;
+  gap: 0.5rem;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.note-type-item:hover .note-type-actions {
+  opacity: 1;
+}
+
+.note-type-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  max-width: 100%;
+}
+
+.note-type-form .input-label {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.delete-warning {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background-color: var(--bg-error);
+  border-radius: 8px;
+  color: var(--error-color);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* 响应式设计 */
+@media (max-width: 640px) {
+  .note-type-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .note-type-actions {
+    width: 100%;
+    opacity: 1;
+  }
+} 
