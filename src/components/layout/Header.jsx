@@ -8,8 +8,8 @@ function Header() {
       </div>
       <nav className="nav">
         <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/notes">Notes</a></li>
+          <li><a href="/">首页</a></li>
+          <li><a href="/notes">笔记</a></li>
         </ul>
       </nav>
     </header>
