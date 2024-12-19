@@ -18,7 +18,7 @@ function NoteForm({ id, note, onSubmit, noteTypes = [] }) {
   const [formData, setFormData] = useState({
     title: note?.title || '',
     content: note?.content || '',
-    category: note?.category || (noteTypes[0]?.value || ''),
+    category: note?.category || '',
     tags: note?.tags || []
   })
 
@@ -97,14 +97,18 @@ function NoteForm({ id, note, onSubmit, noteTypes = [] }) {
         label="分类"
         name="category"
         value={formData.category}
-        onChange={(value) => handleChange({ target: { name: 'category', value } })}
-        options={noteTypes.map(type => ({
-          value: type.value,
-          label: type.name
-        }))}
+        onChange={handleChange}
         error={errors.category}
         required
-      />
+      >
+        <option value="">请选择分类</option>
+        {noteTypes?.map(type => (
+          <option key={type.id} value={type.value}>
+            {type.name}
+            {type.description && ` (${type.description})`}
+          </option>
+        ))}
+      </Select>
       <div className="form-group">
         <label className="input-label">标签</label>
         <TagSelect

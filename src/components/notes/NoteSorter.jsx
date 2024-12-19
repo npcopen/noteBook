@@ -9,22 +9,35 @@ const sortOptions = [
   { value: 'title-desc', label: '标题 Z-A' }
 ]
 
-function NoteSorter({ value, onChange }) {
+function NoteSorter({ value = 'updatedAt-desc', onChange }) {
+  const handleChange = (e) => {
+    onChange(e.target.value);
+  };
+
   return (
     <div className="note-sorter">
       <Select
+        name="sort"
         value={value}
-        onChange={onChange}
-        options={sortOptions}
-        placeholder="排序方式"
-      />
+        onChange={handleChange}
+        label="排序方式"
+      >
+        {sortOptions.map(option => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </Select>
     </div>
   )
 }
 
 NoteSorter.propTypes = {
-  value: PropTypes.string.isRequired,
+  value: PropTypes.oneOf(sortOptions.map(opt => opt.value)),
   onChange: PropTypes.func.isRequired
 }
+
+// 导出排序选项供其他组件使用
+export { sortOptions }
 
 export default NoteSorter 

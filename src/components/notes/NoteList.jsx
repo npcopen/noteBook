@@ -13,9 +13,9 @@ import '../../styles/notes/note-list.css'
  * @param {Function} onDelete - 删除笔记的回调函数
  */
 function NoteList({ notes, noteTypes = [], onEdit, onDelete }) {
-  // 创建笔记类型值到名称的映射对象
-  const typeNameMap = Object.fromEntries(
-    noteTypes.map(type => [type.value, type.name])
+  // 创建笔记类型值到名称和颜色的映射对象
+  const typeMap = Object.fromEntries(
+    noteTypes.map(type => [type.value, { name: type.name, color: type.color }])
   )
 
   // 空列表状态
@@ -50,8 +50,16 @@ function NoteList({ notes, noteTypes = [], onEdit, onDelete }) {
           
           {/* 笔记元信息：分类和标签 */}
           <div className="note-meta">
-            <span className="note-category">
-              {typeNameMap[note.category] || note.category}
+            <span 
+              className="note-category"
+              style={{ 
+                backgroundColor: typeMap[note.category]?.color || '#999',
+                color: '#fff',
+                padding: '2px 8px',
+                borderRadius: '4px'
+              }}
+            >
+              {typeMap[note.category]?.name || note.category}
             </span>
             {note.tags && note.tags.length > 0 && (
               <div className="note-tags">

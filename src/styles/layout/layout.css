@@ -1,0 +1,29 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-wrapper {
+  flex: 1;
+  display: flex;
+  overflow: hidden; /* 防止内容溢出 */
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto; /* 允许内容滚动 */
+  background-color: var(--bg-primary);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .content-wrapper {
+    flex-direction: column;
+  }
+
+  .main-content {
+    padding: 1rem;
+  }
+} 

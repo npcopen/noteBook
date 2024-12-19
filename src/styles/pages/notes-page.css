@@ -1,19 +1,146 @@
 .notes-page {
-  padding: 2rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .notes-header {
   margin-bottom: 2rem;
 }
 
-.notes-header h1 {
-  margin-bottom: 1rem;
+.notes-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-.notes-actions {
+.notes-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.notes-title h1 {
+  margin: 0;
+  font-size: 1.75rem;
+  color: var(--text-primary);
+}
+
+.notes-filters {
   display: flex;
   gap: 1rem;
   align-items: center;
+}
+
+/* 搜索框样式 */
+.search-wrapper {
+  flex: 1;
+  max-width: 400px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--bg-secondary);
+  font-size: 0.9375rem;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  background-color: var(--bg-primary);
+  box-shadow: 0 0 0 3px rgba(100, 108, 255, 0.1);
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-secondary);
+}
+
+/* 排序选择器样式 */
+.note-sorter {
+  min-width: 140px;
+}
+
+.note-sorter select {
+  padding: 0.75rem 2rem 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--bg-secondary);
+  font-size: 0.9375rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.note-sorter select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  background-color: var(--bg-primary);
+  box-shadow: 0 0 0 3px rgba(100, 108, 255, 0.1);
+}
+
+/* 新建笔记按钮样式 */
+.notes-title button {
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.notes-title button:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.notes-title button svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .notes-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .notes-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-wrapper {
+    max-width: none;
+  }
+
+  .note-sorter {
+    min-width: 0;
+  }
+}
+
+/* 暗色主题适配 */
+@media (prefers-color-scheme: dark) {
+  .search-input,
+  .note-sorter select {
+    background-color: var(--bg-primary);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .search-input:focus,
+  .note-sorter select:focus {
+    background-color: var(--bg-secondary);
+    border-color: var(--primary-color);
+  }
 }
 
 .loading {

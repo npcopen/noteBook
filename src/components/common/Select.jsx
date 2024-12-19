@@ -1,35 +1,32 @@
 import PropTypes from 'prop-types'
-import '../../styles/common/select.css'
+import '../../styles/components/common/select.css'
 
 function Select({ 
+  label, 
+  name, 
   value, 
   onChange, 
-  options, 
-  placeholder = '请选择...',
-  label,
-  error,
-  required = false
+  error, 
+  required,
+  children
 }) {
   return (
-    <div className="select-wrapper">
+    <div className="form-group">
       {label && (
-        <label className="input-label">
+        <label className="select-label">
           {label}
           {required && <span className="required">*</span>}
         </label>
       )}
       <select
-        className={`select ${error ? 'select-error' : ''}`}
+        name={name}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={onChange}
+        className={`select-input ${error ? 'select-error' : ''}`}
         required={required}
       >
-        <option value="" disabled>{placeholder}</option>
-        {options.map(option => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
+        <option value="">请选择</option>
+        {children}
       </select>
       {error && <span className="error-message">{error}</span>}
     </div>
@@ -37,16 +34,13 @@ function Select({
 }
 
 Select.propTypes = {
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  options: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired
-  })).isRequired,
-  placeholder: PropTypes.string,
   label: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
   error: PropTypes.string,
-  required: PropTypes.bool
+  required: PropTypes.bool,
+  children: PropTypes.node
 }
 
 export default Select 

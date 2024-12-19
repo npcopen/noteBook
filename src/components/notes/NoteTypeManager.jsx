@@ -14,12 +14,22 @@ function NoteTypeManager({
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [currentType, setCurrentType] = useState(null)
-  const [formData, setFormData] = useState({ name: '', description: '' })
+  const [formData, setFormData] = useState({ 
+    name: '', 
+    description: '', 
+    value: '',
+    color: '#' + Math.floor(Math.random()*16777215).toString(16)
+  })
   const [error, setError] = useState('')
 
   const handleCreate = () => {
     setCurrentType(null)
-    setFormData({ name: '', description: '' })
+    setFormData({ 
+      name: '', 
+      description: '', 
+      value: '',
+      color: '#' + Math.floor(Math.random()*16777215).toString(16)
+    })
     setError('')
     setIsModalOpen(true)
   }
@@ -28,7 +38,9 @@ function NoteTypeManager({
     setCurrentType(type)
     setFormData({
       name: type.name,
-      description: type.description || ''
+      description: type.description || '',
+      value: type.value,
+      color: type.color
     })
     setError('')
     setIsModalOpen(true)
@@ -46,6 +58,11 @@ function NoteTypeManager({
       return
     }
 
+    if (!formData.value.trim()) {
+      formData.value = formData.name.toLowerCase()
+        .replace(/[^a-z0-9]/g, '_')
+    }
+
     try {
       if (currentType) {
         await onUpdateType(currentType.id, formData)
@@ -53,9 +70,19 @@ function NoteTypeManager({
         await onCreateType(formData)
       }
       setIsModalOpen(false)
-      setFormData({ name: '', description: '' })
+      setFormData({ 
+        name: '', 
+        description: '', 
+        value: '',
+        color: '#' + Math.floor(Math.random()*16777215).toString(16)
+      })
     } catch (err) {
-      setError(err.message)
+      if (err.message.includes('Unauthorized')) {
+        setError('您没有权限修改此笔记类型')
+      } else {
+        setError(err.message || '保存失败，请重试')
+      }
+      console.error('Failed to save note type:', err)
     }
   }
 
@@ -78,7 +105,17 @@ function NoteTypeManager({
         {noteTypes.map(type => (
           <div key={type.id} className="note-type-item">
             <div className="note-type-content">
-              <span className="note-type-name">{type.name}</span>
+              <span 
+                className="note-type-name" 
+                style={{ 
+                  backgroundColor: type.color,
+                  color: '#fff',
+                  padding: '2px 8px',
+                  borderRadius: '4px'
+                }}
+              >
+                {type.name}
+              </span>
               {type.description && (
                 <span className="note-type-description">{type.description}</span>
               )}
@@ -112,6 +149,7 @@ function NoteTypeManager({
       >
         <form className="note-type-form" onSubmit={handleSubmit}>
           <Input
+            name="name"
             label="类型名称"
             value={formData.name}
             onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
@@ -119,9 +157,24 @@ function NoteTypeManager({
             required
           />
           <Input
+            name="value"
+            label="类型标识"
+            value={formData.value}
+            onChange={(e) => setFormData(prev => ({ ...prev, value: e.target.value }))}
+            placeholder="可选，默认使用名称拼音"
+          />
+          <Input
+            name="description"
             label="类型描述"
             value={formData.description}
             onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
+          />
+          <Input
+            name="color"
+            type="color"
+            label="类型颜色"
+            value={formData.color}
+            onChange={(e) => setFormData(prev => ({ ...prev, color: e.target.value }))}
           />
         </form>
       </Modal>
@@ -153,6 +206,7 @@ NoteTypeManager.propTypes = {
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
+    color: PropTypes.string.isRequired,
     description: PropTypes.string
   })).isRequired,
   onCreateType: PropTypes.func.isRequired,

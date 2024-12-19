@@ -5,51 +5,49 @@ import '../../styles/layout/sidebar.css'
 function Sidebar({ 
   activeCategory, 
   onCategoryChange, 
-  noteTypes,
+  noteTypes = [], 
   onManageTypes,
   loading 
 }) {
   return (
-    <aside className="sidebar">
-      <div className="sidebar-header">
-        <h1>笔记本</h1>
-      </div>
-      <nav className="sidebar-nav">
-        <ul className="category-list">
-          <li>
+    <nav className="sidebar-nav">
+      <ul className="category-list">
+        <li>
+          <button 
+            className={`category-item ${activeCategory === 'all' ? 'active' : ''}`}
+            onClick={() => onCategoryChange('all')}
+          >
+            全部笔记
+          </button>
+        </li>
+        {noteTypes.map(type => (
+          <li key={type.id}>
             <button
-              className={`category-item ${activeCategory === 'all' ? 'active' : ''}`}
-              onClick={() => onCategoryChange('all')}
+              className={`category-item ${activeCategory === type.value ? 'active' : ''}`}
+              onClick={() => onCategoryChange(type.value)}
+              style={{
+                backgroundColor: type.color,
+                color: '#fff',
+                border: 'none',
+                opacity: activeCategory === type.value ? 1 : 0.8
+              }}
             >
-              全部笔记
+              {type.name}
             </button>
           </li>
-          {loading ? (
-            <li className="loading-text">加载中...</li>
-          ) : (
-            noteTypes.map(type => (
-              <li key={type.value}>
-                <button
-                  className={`category-item ${activeCategory === type.value ? 'active' : ''}`}
-                  onClick={() => onCategoryChange(type.value)}
-                >
-                  {type.name}
-                </button>
-              </li>
-            ))
-          )}
-        </ul>
-      </nav>
+        ))}
+      </ul>
       <div className="sidebar-footer">
         <Button 
           variant="secondary" 
           onClick={onManageTypes}
-          className="manage-types-btn"
+          disabled={loading}
+          block
         >
-          管理笔记类型
+          管理分类
         </Button>
       </div>
-    </aside>
+    </nav>
   )
 }
 
@@ -59,8 +57,9 @@ Sidebar.propTypes = {
   noteTypes: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired
-  })).isRequired,
+    value: PropTypes.string.isRequired,
+    color: PropTypes.string.isRequired
+  })),
   onManageTypes: PropTypes.func.isRequired,
   loading: PropTypes.bool
 }

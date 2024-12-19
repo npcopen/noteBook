@@ -1,0 +1,64 @@
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.select-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.select-input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: white;
+  color: var(--text-primary);
+}
+
+.select-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.select-input.select-error {
+  border-color: var(--error-color);
+}
+
+.select-input.select-error:focus {
+  box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.2);
+}
+
+.error-message {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--error-color);
+  font-size: 0.875rem;
+}
+
+.required {
+  color: var(--error-color);
+  margin-left: 0.25rem;
+}
+
+/* 禁用状态 */
+.select-input:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+}
+
+/* 选项样式 */
+.select-input option {
+  padding: 0.5rem;
+}
+
+/* 响应式设计 */
+@media (max-width: 640px) {
+  .select-input {
+    font-size: 16px; /* 防止 iOS 缩放 */
+  }
+} 
